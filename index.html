@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HSK 标准教程 3 · 打字练习</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#eef1f8;--card:#fff;--ink:#1f2937;--ink2:#6b7280;--ink3:#9ca3af;--line:#e5e8f0;--brand:#4f6ef7;--brand2:#7c3aed;--ok:#15803d;--okbg:#dcfce7;--cur:#e11d48;--curbg:#ffe4e6;--done-bg:#ecfdf5;--done-border:#6ee7b7}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);padding:20px 14px 56px;-webkit-font-smoothing:antialiased}
+.app{max-width:1200px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#4f6ef7,#7c3aed);border-radius:18px;padding:18px 24px;color:#fff;margin-bottom:14px;box-shadow:0 12px 32px -14px rgba(79,110,247,.6);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero .badge{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);padding:5px 13px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.5px}
+.hero h1{font-size:20px;font-weight:600;letter-spacing:.4px}
+.hero .hero-en{font-size:12px;opacity:.82;margin-top:2px;letter-spacing:.3px}
+.lesson-nav{background:var(--card);border-radius:14px;padding:12px 14px;margin-bottom:14px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -14px rgba(16,24,40,.2)}
+.range-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.range-btn{font-family:inherit;font-size:13px;font-weight:600;padding:9px 20px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;transition:.15s;white-space:nowrap}
+.range-btn:hover{background:#f5f7fc}
+.range-btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:var(--brand);box-shadow:0 4px 12px -4px rgba(79,110,247,.5)}
+.range-body{display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:1px dashed #e8ecf7;min-height:46px}
+.lesson-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lesson-group-title{font-size:11.5px;font-weight:700;color:var(--brand);background:#eef2ff;padding:5px 11px;border-radius:7px;min-width:54px;text-align:center;flex-shrink:0}
+.lesson-tab{font-family:inherit;font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;transition:.15s;white-space:nowrap}
+.lesson-tab:hover{background:#f5f7fc}
+.lesson-tab.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:var(--brand);box-shadow:0 4px 12px -4px rgba(79,110,247,.5)}
+.lesson-tab.done{border-color:var(--done-border);background:#f0fdf4;color:#065f46}
+.lesson-tab.active.done{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:var(--brand)}
+.empty-range{text-align:center;padding:22px 12px;font-size:13px;color:var(--ink3);line-height:1.6}
+.empty-range small{display:block;font-size:11px;opacity:.7;margin-top:3px}
+.audio-card{background:var(--card);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:14px;margin-bottom:14px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -14px rgba(16,24,40,.2)}
+.play-btn{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;border:none;display:grid;place-items:center;flex-shrink:0;cursor:pointer;transition:.16s}
+.play-btn:hover{background:#4260e8;transform:scale(1.06)}
+.play-btn svg{width:18px;height:18px}
+.audio-main{flex:1;min-width:120px}
+.audio-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px}
+.audio-title{font-size:13px;font-weight:600;color:#374151;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.audio-time{font-size:11.5px;color:var(--ink3);font-variant-numeric:tabular-nums;flex-shrink:0}
+.track{height:5px;background:#e8ecf7;border-radius:99px;cursor:pointer;overflow:hidden}
+.track-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--brand),var(--brand2));border-radius:99px;transition:width .1s linear}
+.speed-control{display:flex;align-items:center;gap:5px;padding:6px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:11.5px;color:var(--ink2);flex-shrink:0}
+.speed-control label{font-size:10.5px;color:var(--ink3)}
+.speed-control select{font-family:inherit;font-size:11.5px;padding:2px 3px;border:none;background:transparent;outline:none;cursor:pointer;color:var(--ink);font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -14px rgba(16,24,40,.2)}
+.panel-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.panel-head h2{font-size:14px;font-weight:600;letter-spacing:.3px;white-space:nowrap}
+.panel-head h2 small{display:block;font-size:9.5px;color:var(--ink3);font-weight:400;margin-top:2px}
+.lesson-banner{text-align:right;min-width:0;padding:0 4px;overflow:hidden;line-height:1.3}
+.lb-lesson-zh{font-size:15.5px;font-weight:700;color:var(--brand);letter-spacing:.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-lesson-en{font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.25px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:400}
+.lb-text-zh{font-size:13.5px;font-weight:600;color:#374151;margin-top:6px;letter-spacing:.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-text-en{font-size:10.5px;color:var(--ink3);margin-top:2px;letter-spacing:.25px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:400}
+.head-actions{display:flex;gap:5px;flex-wrap:wrap;justify-self:end}
+@media(max-width:720px){.panel-head{grid-template-columns:auto auto;grid-template-areas:"title actions" "banner banner";row-gap:8px}.panel-head h2{grid-area:title}.head-actions{grid-area:actions}.lesson-banner{grid-area:banner;text-align:center;padding-top:8px;border-top:1px dashed #e8ecf7}.lb-lesson-zh,.lb-lesson-en,.lb-text-zh,.lb-text-en{white-space:normal}}
+.chip{font-size:11.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink2);font-weight:500;transition:.15s;font-family:inherit;display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.chip small{font-size:8.5px;color:inherit;opacity:.62;margin-top:1px}
+.chip:hover{background:#f5f7fc}
+.chip.on{background:#eef2ff;border-color:#c7d2fe;color:var(--brand)}
+.avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#e5e7eb;display:inline-block;vertical-align:middle}
+.avatar-text{width:36px;height:36px;border-radius:50%;background:#c7d2fe;color:#3730a3;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;vertical-align:middle}
+.line-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.speaker{font-size:11.5px;color:var(--brand);background:#eef2ff;padding:2px 9px;border-radius:999px;font-weight:600;flex-shrink:0}
+.pinyin-line{display:none;font-size:12px;color:#7c8db5;margin-bottom:5px;letter-spacing:.2px;line-height:1.55;word-break:break-word}
+.pinyin-line.show{display:block}
+.trans{display:none;font-size:12.5px;color:#6366f1;margin-top:5px;letter-spacing:.2px;font-style:italic;line-height:1.55}
+.trans.show{display:block}
+.line-text{font-size:16.5px;line-height:1.7;color:#111827}
+.line{padding:9px 11px;border-radius:9px;margin-bottom:3px;transition:background .15s,border-color .15s;cursor:pointer;border:1px solid transparent}
+.line:hover{background:#f7f9ff}
+.line.line-current{background:#eef2ff;border-color:#c7d2fe;box-shadow:0 2px 10px -4px rgba(79,110,247,.35)}
+.line.line-current .line-text{color:#3730a3}
+.line.line-unfinished{background:#fff7ed}
+.line.line-unfinished .line-text{color:#c2410c}
+.line.line-done{background:var(--done-bg);border-color:var(--done-border)}
+.line.line-done .line-text{color:#065f46}
+.line.line-done .line-top::after{content:'✓';margin-left:auto;color:#059669;font-weight:700;font-size:13px;background:#d1fae5;padding:1px 8px;border-radius:999px}
+.score-bar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#eef2ff,#f5f3ff);border-radius:10px;padding:12px 16px;margin-bottom:12px;border:1px solid #e0e7ff}
+.score-bar .sb-label{font-size:12.5px;color:#4b5563;font-weight:500;line-height:1.3}
+.score-bar .sb-label .sb-score-detail{display:block;font-size:10.5px;color:#6b7280;font-weight:400;margin-top:3px}
+.score-bar .sb-label .sb-score-detail-en{display:block;font-size:9.5px;color:#9ca3af;font-weight:400;margin-top:1px;letter-spacing:.2px}
+.score-bar .sb-value{font-size:22px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;line-height:1;display:flex;align-items:baseline;flex-shrink:0}
+.score-bar .sb-value .num{font-size:26px}
+.score-bar .sb-value .sep{font-size:16px;color:#9ca3af;margin:0 3px;font-weight:400}
+.score-bar .sb-value .den{font-size:16px;color:#6b7280;font-weight:600}
+.score-bar .sb-value.perfect{color:var(--ok)}
+.score-bar .sb-value.perfect .den{color:#4ade80}
+.progress-inline{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ink3);margin-bottom:8px}
+.progress-inline .prog{font-weight:600;color:var(--brand)}
+.cur-speaker-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cur-speaker{display:inline-block;font-size:11.5px;color:var(--brand);background:#eef2ff;padding:2px 10px;border-radius:999px;font-weight:600}
+.target{font-size:24px;line-height:1.7;letter-spacing:1px;min-height:100px;padding:12px 14px;background:#f8faff;border:1px solid #e8ecf7;border-radius:10px;margin-bottom:12px;display:flex;flex-wrap:wrap;align-items:flex-end;row-gap:5px}
+.ch-unit{display:inline-flex;flex-direction:column;align-items:center;margin:0 2px}
+.ch-py{display:block;font-size:11.5px;color:#94a3b8;line-height:1.1;height:14px;margin-bottom:3px;letter-spacing:.3px;text-align:center;white-space:nowrap;transition:color .15s}
+.target:not(.show-pinyin) .ch-py{visibility:hidden}
+.ch{display:inline-block;padding:3px 7px;border-radius:6px;font-size:24px;line-height:1.15;transition:.12s;color:#111827;background:transparent}
+.ch.pending{color:#b6bcc8}
+.ch.punct{color:#9ca3af}
+.ch.ok{color:var(--ok);background:var(--okbg)}
+.ch.current{color:var(--cur);background:var(--curbg);box-shadow:0 0 0 1.5px rgba(225,29,72,.35)}
+.ch-unit.ok .ch-py{color:#4ade80}
+.ch-unit.current .ch-py{color:#fb7185}
+.answer-input{width:100%;font-size:17px;font-family:inherit;padding:12px 14px;border:2px solid #e2e6f0;border-radius:10px;outline:none;background:#fff;transition:border-color .18s,box-shadow .18s}
+.answer-input:focus{border-color:var(--brand);box-shadow:0 0 0 4px rgba(79,110,247,.12)}
+.answer-input::placeholder{color:#c3c9d6}
+.stats{display:flex;justify-content:space-between;align-items:center;margin:10px 2px 12px}
+.stats .live{font-size:12.5px;color:var(--ink2);display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+.stats .live b{color:#111827;font-size:15px;font-variant-numeric:tabular-nums}
+.stats .live small{color:var(--ink3);font-size:9.5px}
+.acc{font-size:17px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+.acc.perfect{color:var(--ok)}
+.nav-row{display:flex;gap:8px}
+.nav-row button{flex:1}
+.nav-row button{font-family:inherit;font-size:12.5px;font-weight:500;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:.15s;display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.nav-row button small{font-size:9.5px;color:var(--ink3);font-weight:400;margin-top:2px}
+.nav-row button:hover:not(:disabled){background:#f5f7fc}
+.nav-row button:disabled{opacity:.4;cursor:not-allowed}
+.nav-row button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.nav-row button.primary small{color:#dbeafe}
+.nav-row button.primary:hover:not(:disabled){background:#4260e8}
+/* 得分总览 */
+.overview{margin-top:18px;background:var(--card);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -14px rgba(16,24,40,.2)}
+.overview h2{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.overview h2 .trophy{font-size:19px}
+.overview h2 .bi-en{font-size:11px;color:var(--ink3);font-weight:400;display:inline;margin-left:6px}
+.ov-range-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed #e8ecf7}
+.ov-range-tabs .range-btn{font-size:12.5px;padding:7px 16px;border-radius:8px}
+.ov-course{margin-bottom:18px}
+.ov-course-head{font-size:13.5px;font-weight:700;color:var(--brand);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ov-course-head::before{content:'';width:4px;height:15px;background:linear-gradient(135deg,var(--brand),var(--brand2));border-radius:2px}
+.ov-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:7px;margin-bottom:8px}
+@media(max-width:600px){.ov-list{grid-template-columns:1fr}}
+.ov-item{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-radius:9px;background:#f8faff;border:1px solid #e8ecf7;cursor:pointer;transition:.15s}
+.ov-item:hover{background:#eef2ff;border-color:#c7d2fe}
+.ov-item.current{border-color:var(--brand);background:#eef2ff}
+.ov-item.done{background:#f0fdf4;border-color:#bbf7d0}
+.ov-item .ov-name{font-size:12.5px;color:#374151;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ov-item .ov-id{font-size:10px;color:var(--ink3);margin-right:7px;background:#fff;padding:1px 6px;border-radius:4px;border:1px solid var(--line);flex-shrink:0}
+.ov-item .ov-score{font-size:14px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;margin-left:8px;display:flex;align-items:baseline}
+.ov-item .ov-score .num{font-size:15px}
+.ov-item .ov-score .sep{font-size:11px;color:#9ca3af;margin:0 2px;font-weight:400}
+.ov-item .ov-score .den{font-size:12px;color:#6b7280;font-weight:600}
+.ov-item .ov-score.empty{color:#d1d5db}
+.ov-item .ov-score.empty .den{color:#d1d5db}
+.ov-item.done .ov-score{color:var(--ok)}
+.ov-item.done .ov-score .den{color:#4ade80}
+.ov-total{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-radius:9px;background:linear-gradient(135deg,#eef2ff,#f5f3ff);border:1px dashed #c7d2fe}
+.ov-total .lbl{font-size:13px;color:#4b5563;font-weight:600}
+.ov-total .lbl small{display:block;font-size:10.5px;color:var(--ink3);font-weight:400;margin-top:2px}
+.ov-total .val{font-size:18px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;display:flex;align-items:baseline}
+.ov-total .val .num{font-size:20px}
+.ov-total .val .sep{font-size:14px;color:#9ca3af;margin:0 3px;font-weight:400}
+.ov-total .val .den{font-size:14px;color:#6b7280;font-weight:600}
+.ov-total .val.empty{color:#c7d2fe}
+.ov-total .val.empty .den{color:#c7d2fe}
+.overview-empty{text-align:center;padding:30px 20px;color:var(--ink3);font-size:13.5px;line-height:1.6}
+.overview-empty small{display:block;font-size:11px;opacity:.7;margin-top:5px}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:rgba(17,24,39,.92);color:#fff;padding:11px 22px;border-radius:10px;font-size:13px;z-index:3000;opacity:0;pointer-events:none;transition:.25s;max-width:90vw;box-shadow:0 12px 32px -8px rgba(0,0,0,.35);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{background:linear-gradient(135deg,#10b981,#059669)}
+@media(max-width:600px){body{padding:12px 10px 40px}.hero{padding:14px 16px;border-radius:14px}.hero h1{font-size:16px}.ch{font-size:20px;padding:2px 5px}.ch-py{font-size:10px;height:12px}.target{font-size:20px;padding:10px 12px;min-height:80px}.line-text{font-size:14.5px}.panel{padding:14px}.lesson-tab{padding:5px 10px;font-size:11.5px}.lesson-group-title{font-size:11px;padding:4px 8px;min-width:48px}.range-btn{padding:7px 12px;font-size:12px}.ov-range-tabs .range-btn{padding:6px 12px;font-size:11.5px}}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="app">
+  <div class="hero">
+    <div class="badge">HSK 3 · 标准教程</div>
+    <div>
+      <h1>课文打字练习</h1>
+      <div class="hero-en">HSK Standard Course 3 · Typing Practice</div>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <div class="range-tabs" id="rangeTabs">
+      <button class="range-btn active" data-range="1-5">第1-5课</button>
+      <button class="range-btn" data-range="6-10">第6-10课</button>
+      <button class="range-btn" data-range="11-15">第11-15课</button>
+      <button class="range-btn" data-range="16-20">第16-20课</button>
+    </div>
+    <div class="range-body" id="rangeBody"></div>
+  </div>
+
+  <div class="audio-card">
+    <button class="play-btn" id="playBtn">
+      <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="audio-main">
+      <div class="audio-title-row">
+        <span class="audio-title" id="audioName">课文录音</span>
+        <span class="audio-time" id="audioTime">00:00 / 00:00</span>
+      </div>
+      <div class="track" id="track"><div class="track-fill" id="trackFill"></div></div>
+    </div>
+    <div class="speed-control">
+      <label>倍速</label>
+      <select id="playbackRate">
+        <option value="0.5">0.5x</option>
+        <option value="0.75">0.75x</option>
+        <option value="1" selected>1.0x</option>
+        <option value="1.25">1.25x</option>
+        <option value="1.5">1.5x</option>
+        <option value="2">2.0x</option>
+      </select>
+    </div>
+    <audio id="audioEl" preload="metadata"></audio>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>课文原文<small>Original Text</small></h2>
+        <div class="lesson-banner">
+          <div class="lb-lesson-zh" id="lessonBannerZh"></div>
+          <div class="lb-lesson-en" id="lessonBannerEn"></div>
+          <div class="lb-text-zh" id="textBannerZh"></div>
+          <div class="lb-text-en" id="textBannerEn"></div>
+        </div>
+        <div class="head-actions">
+          <button class="chip" id="pinyinToggle">拼音<small>Pinyin</small></button>
+          <button class="chip" id="transToggle">英文<small>English</small></button>
+        </div>
+      </div>
+      <div id="lines"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head" style="grid-template-columns:auto 1fr auto;">
+        <h2>逐句打字<small>Type Sentence by Sentence</small></h2>
+        <div></div>
+        <button class="chip" id="typePinyinToggle">拼音<small>Pinyin</small></button>
+      </div>
+
+      <div class="score-bar">
+        <span class="sb-label">
+          本篇得分
+          <span class="sb-score-detail" id="scoreDetailZh">正确 0 字 / 共 0 字</span>
+          <span class="sb-score-detail-en" id="scoreDetailEn">0 correct / 0 total</span>
+        </span>
+        <span class="sb-value" id="currentScore">
+          <span class="num">0</span><span class="sep">/</span><span class="den">0</span>
+        </span>
+      </div>
+
+      <div class="progress-inline">
+        <span>进度 / Progress</span>
+        <span class="prog" id="progressPill">1 / 5</span>
+      </div>
+
+      <div class="cur-speaker-row">
+        <span id="curAvatar"></span>
+        <span class="cur-speaker" id="curSpeaker"></span>
+      </div>
+
+      <div class="target" id="target"></div>
+
+      <input type="text" class="answer-input" id="answerInput" placeholder="请照着上面的句子逐字输入…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+
+      <div class="stats">
+        <span class="live">
+          <span>本句正确</span>
+          <b id="liveScore">0 / 0</b>
+          <small>字 / chars</small>
+        </span>
+        <span class="acc" id="accuracy">0%</span>
+      </div>
+
+      <div class="nav-row">
+        <button id="prevBtn">
+          <span>← 上一句</span>
+          <small>Previous</small>
+        </button>
+        <button id="nextBtn" class="primary">
+          <span>下一句 →</span>
+          <small>Next</small>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overview">
+    <h2>
+      <span class="trophy">🏆</span>
+      <span>得分总览<span class="bi-en">Score Overview</span></span>
+    </h2>
+    <div class="range-tabs ov-range-tabs" id="ovRangeTabs">
+      <button class="range-btn active" data-range="1-5">第1-5课</button>
+      <button class="range-btn" data-range="6-10">第6-10课</button>
+      <button class="range-btn" data-range="11-15">第11-15课</button>
+      <button class="range-btn" data-range="16-20">第16-20课</button>
+    </div>
+    <div id="overviewBody"></div>
+  </div>
+</div>
+
+<script src="lessons-01-05.js"></script>
+<script src="lessons-06-10.js"></script>
+<script src="lessons-11-15.js"></script>
+<script src="lessons-16-20.js"></script>
+<script>
+(function(){
+'use strict';
+const AUDIO_DIR='assets/';
+const AVATARS={
+  '小丽':AUDIO_DIR+'xiaoli.png','小刚':AUDIO_DIR+'xiaogang.png','小明':AUDIO_DIR+'xiaoming.png',
+  '马可':AUDIO_DIR+'make.png','大山':AUDIO_DIR+'dashan.png','大卫':AUDIO_DIR+'dawei.png',
+  '妈妈':AUDIO_DIR+'mama.png','爸爸':AUDIO_DIR+'baba.png','儿子':AUDIO_DIR+'erzi.png',
+  '女儿':AUDIO_DIR+'nver.png','丈夫':AUDIO_DIR+'zhangfu.png','爷爷':AUDIO_DIR+'yeye.png',
+  '奶奶':AUDIO_DIR+'nainai.png','叔叔':AUDIO_DIR+'shushu.png','阿姨':AUDIO_DIR+'ayi.png',
+  '周明':AUDIO_DIR+'zhouming.png','周太太':AUDIO_DIR+'zhoutaitai.png','张太太':AUDIO_DIR+'zhangtaitai.png',
+  '王经理':AUDIO_DIR+'wangjingli.png','经理':AUDIO_DIR+'jingli.png','秘书':AUDIO_DIR+'mishu.png',
+  '同事':AUDIO_DIR+'tongshi.png','中介':AUDIO_DIR+'zhongjie.png','司机':AUDIO_DIR+'siji.png',
+  '老师':AUDIO_DIR+'laoshi.png','学生':AUDIO_DIR+'xuesheng.png','同学':AUDIO_DIR+'tongxue.png',
+  '王静':AUDIO_DIR+'wangjing.png','小云':AUDIO_DIR+'xiaoyun.png','校长':AUDIO_DIR+'xiaozhang.png',
+  '李小美':AUDIO_DIR+'lixiaomei.png','服务员':AUDIO_DIR+'fuwuyuan.png','大夫':AUDIO_DIR+'daifu.png',
+  '医生':AUDIO_DIR+'yisheng.png','朋友':AUDIO_DIR+'pengyou.png','客人':AUDIO_DIR+'keren.png',
+  '邻居':AUDIO_DIR+'linju.png','老同学':AUDIO_DIR+'laotongxue.png','旁白':AUDIO_DIR+'pangbai.png'
+};
+const lessons=window.HSK3_LESSONS||[];
+if(!lessons.length){document.body.innerHTML='<h1 style="padding:40px;font-size:16px;color:#c00">未找到课文数据。</h1>';return;}
+const $=id=>document.getElementById(id);
+const SCORABLE=/[\u4e00-\u9fff\u3400-\u4dbf0-9]/;
+const isScorable=ch=>SCORABLE.test(ch);
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const safeStorage={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let toastTimer=null;
+function showToast(msg){const el=$('toast');el.textContent=msg;el.className='toast show';if(toastTimer)clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.className='toast'},2000);}
+const ANSWERS_KEY='hsk3_answers_v7',OPTIONS_KEY='hsk3_options_v7',CURRENT_KEY='hsk3_current_lesson_v7',RANGE_KEY='hsk3_current_range_v7';
+let answersByLesson={};try{answersByLesson=JSON.parse(safeStorage.get(ANSWERS_KEY)||'{}')||{}}catch(e){answersByLesson={}}
+function ensureAnswers(id){const l=lessons.find(x=>x.id===id);if(!l)return;if(!Array.isArray(answersByLesson[id])||answersByLesson[id].length!==l.sentences.length){answersByLesson[id]=new Array(l.sentences.length).fill('')}}
+lessons.forEach(l=>ensureAnswers(l.id));
+let saveTimer=null;function scheduleSave(){if(saveTimer)clearTimeout(saveTimer);saveTimer=setTimeout(()=>{safeStorage.set(ANSWERS_KEY,JSON.stringify(answersByLesson))},400)}
+let currentLessonId=safeStorage.get(CURRENT_KEY)||lessons[0].id;
+if(!lessons.find(l=>l.id===currentLessonId))currentLessonId=lessons[0].id;
+let cur=0;
+let currentRange=safeStorage.get(RANGE_KEY)||'1-5';
+if(!['1-5','6-10','11-15','16-20'].includes(currentRange))currentRange='1-5';
+function syncRangeToLesson(){const no=getLesson().lessonNo;if(no<=5)currentRange='1-5';else if(no<=10)currentRange='6-10';else if(no<=15)currentRange='11-15';else currentRange='16-20';safeStorage.set(RANGE_KEY,currentRange)}
+let options={pinyinOn:false,transOn:false,typePinyinOn:false};
+try{const o=JSON.parse(safeStorage.get(OPTIONS_KEY)||'{}');if(o&&typeof o==='object')Object.assign(options,o)}catch(e){}
+function saveOptions(){safeStorage.set(OPTIONS_KEY,JSON.stringify(options))}
+function getLesson(){return lessons.find(l=>l.id===currentLessonId)}
+function getAnswers(){ensureAnswers(currentLessonId);return answersByLesson[currentLessonId]}
+function getSentences(){return getLesson().sentences}
+function avatarHTML(name){const src=AVATARS[name];if(src){return`<img class="avatar" src="${src}" alt="${esc(name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'"><span class="avatar-text" style="display:none">${esc(name[0])}</span>`}return`<span class="avatar-text">${esc(name[0])}</span>`}
+function computeStatuses(s,userChars,hasInput){const chars=[...s.text];const statuses=new Array(chars.length).fill('pending');let cursor=0;for(let i=0;i<chars.length;i++){const ch=chars[i];if(!isScorable(ch)){statuses[i]='punct';continue}let found=-1;for(let j=cursor;j<userChars.length;j++){if(userChars[j]===ch){found=j;break}}if(found>=0){statuses[i]='ok';cursor=found+1}}if(hasInput){let lastOk=-1;for(let i=0;i<statuses.length;i++)if(statuses[i]==='ok')lastOk=i;for(let i=lastOk+1;i<statuses.length;i++){if(statuses[i]==='pending'){statuses[i]='current';break}}}return statuses}
+function isSentenceDone(s,raw){const u=[...(raw||'')].filter(isScorable);if(u.length===0)return false;const st=computeStatuses(s,u,raw.length>0);return st.every(x=>x==='ok'||x==='punct')}
+
+/* ========== 导航 / 范围切换 ========== */
+function renderNav(){
+  // 两组按钮高亮同步
+  $('rangeTabs').querySelectorAll('.range-btn').forEach(b=>b.classList.toggle('active',b.dataset.range===currentRange));
+  $('ovRangeTabs').querySelectorAll('.range-btn').forEach(b=>b.classList.toggle('active',b.dataset.range===currentRange));
+  // 渲染当前范围的课文标签
+  const groups={};lessons.forEach(l=>{if(!groups[l.lessonNo])groups[l.lessonNo]=[];groups[l.lessonNo].push(l)});
+  const[start,end]=currentRange.split('-').map(Number);
+  let html='';let hasAny=false;
+  for(let i=start;i<=end;i++){
+    if(groups[i]){
+      hasAny=true;
+      html+=`<div class="lesson-group"><span class="lesson-group-title">第${i}课</span>`;
+      groups[i].forEach(l=>{html+=lessonTabHTML(l)});
+      html+=`</div>`;
+    }
+  }
+  if(!hasAny){html=`<div class="empty-range">第${start}-${end}课暂无内容<small>No lessons in this range yet</small></div>`}
+  $('rangeBody').innerHTML=html;
+  $('rangeBody').querySelectorAll('.lesson-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id=btn.dataset.id;
+      if(id!==currentLessonId)switchLesson(id);
+    });
+  });
+  // 得分总览也刷新
+  renderOverview();
+}
+function lessonTabHTML(l){
+  const active=(l.id===currentLessonId)?' active':'';
+  const r=judgeLesson(l.id);
+  const done=r.correct>0?' done':'';
+  return`<button class="lesson-tab${active}${done}" data-id="${l.id}">${esc(l.id)} ${esc(l.title)}</button>`;
+}
+// 两组按钮绑定同一逻辑
+function bindRangeButtons(container){
+  container.querySelectorAll('.range-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const range=btn.dataset.range;
+      if(currentRange===range)return;
+      currentRange=range;
+      safeStorage.set(RANGE_KEY,range);
+      renderNav();
+    });
+  });
+}
+bindRangeButtons($('rangeTabs'));
+bindRangeButtons($('ovRangeTabs'));
+
+function switchLesson(id){safeStorage.set(ANSWERS_KEY,JSON.stringify(answersByLesson));currentLessonId=id;safeStorage.set(CURRENT_KEY,id);cur=0;syncRangeToLesson();renderNav();updateLessonBanner();loadAudio();renderAll()}
+function refreshTabsState(){document.querySelectorAll('.lesson-tab').forEach(btn=>{const id=btn.dataset.id;const r=judgeLesson(id);btn.classList.toggle('active',id===currentLessonId);btn.classList.toggle('done',r.correct>0)})}
+function updateLessonBanner(){const l=getLesson();$('lessonBannerZh').textContent=`第${l.lessonNo}课 ${l.lessonTitle}`;$('lessonBannerEn').textContent=`Lesson ${l.lessonNo} ${l.lessonTitleEn}`;$('textBannerZh').textContent=`课文${l.textNo} ${l.title}`;$('textBannerEn').textContent=`Text ${l.textNo} ${l.titleEn}`}
+
+/* ========== 音频 ========== */
+const audioEl=$('audioEl'),playBtn=$('playBtn'),iconPlay=$('iconPlay'),iconPause=$('iconPause'),trackEl=$('track'),fillEl=$('trackFill'),timeEl=$('audioTime'),rateSel=$('playbackRate'),audioNameEl=$('audioName');
+function loadAudio(){const l=getLesson();audioEl.src=l.audio;audioNameEl.textContent=`${l.id} ${l.title}`;fillEl.style.width='0%';timeEl.textContent='00:00 / 00:00'}
+playBtn.addEventListener('click',()=>{if(audioEl.paused){audioEl.play().catch(()=>showToast('音频加载失败：'+getLesson().audio))}else audioEl.pause()});
+rateSel.addEventListener('change',()=>{const rate=parseFloat(rateSel.value)||1;audioEl.playbackRate=rate;try{audioEl.preservesPitch=true}catch(e){}});
+audioEl.addEventListener('play',()=>{iconPlay.style.display='none';iconPause.style.display=''});
+audioEl.addEventListener('pause',()=>{iconPlay.style.display='';iconPause.style.display='none'});
+audioEl.addEventListener('ended',()=>{iconPlay.style.display='';iconPause.style.display='none'});
+const fm=sec=>{sec=Math.max(0,Math.floor(sec||0));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')};
+audioEl.addEventListener('timeupdate',()=>{if(audioEl.duration)fillEl.style.width=(audioEl.currentTime/audioEl.duration*100)+'%';timeEl.textContent=fm(audioEl.currentTime)+' / '+fm(audioEl.duration)});
+audioEl.addEventListener('loadedmetadata',()=>{timeEl.textContent='00:00 / '+fm(audioEl.duration)});
+trackEl.addEventListener('click',e=>{if(!audioEl.duration)return;const r=trackEl.getBoundingClientRect();audioEl.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audioEl.duration});
+
+/* ========== 渲染课文原文 ========== */
+function renderLines(){
+  const sentences=getSentences();
+  const ans=getAnswers();
+  $('lines').innerHTML=sentences.map((s,i)=>{
+    const isDone=isSentenceDone(s,ans[i]);
+    const isCurrent=(i===cur);
+    const hasSomeInput=(ans[i]||'').length>0;
+    const isUnfinished=!isDone&&hasSomeInput&&!isCurrent;
+    let cls='line';
+    if(isCurrent)cls+=' line-current';
+    else if(isDone)cls+=' line-done';
+    else if(isUnfinished)cls+=' line-unfinished';
+    const isNarrator=(s.speaker==='旁白');
+    const label=isNarrator?'':`<span class="speaker">${esc(s.speaker)}</span>`;
+    return`<div class="${cls}" data-idx="${i}"><div class="line-top">${avatarHTML(s.speaker)}${label}</div><div class="pinyin-line${options.pinyinOn?' show':''}">${esc(s.py)}</div><div class="line-text">${esc(s.text)}</div><div class="trans${options.transOn?' show':''}">${esc(s.trans)}</div></div>`;
+  }).join('');
+}
+$('lines').addEventListener('click',e=>{const lineEl=e.target.closest('.line');if(!lineEl)return;const idx=parseInt(lineEl.dataset.idx,10);if(isNaN(idx))return;cur=idx;renderAll();$('answerInput').focus()});
+
+/* ========== 渲染目标句 ========== */
+function renderTarget(){const s=getSentences()[cur];const raw=(getAnswers()[cur]||'');const userChars=[...raw].filter(isScorable);const statuses=computeStatuses(s,userChars,raw.length>0);const chars=[...s.text];const pyChars=s.pyChars||[];let html='';for(let i=0;i<chars.length;i++){const ch=chars[i];const py=pyChars[i]||'';const st=statuses[i];if(!isScorable(ch)){html+=`<span class="ch-unit"><span class="ch-py">&nbsp;</span><span class="ch punct">${esc(ch)}</span></span>`}else{const cls=st==='ok'?'ok':(st==='current'?'current':'pending');html+=`<span class="ch-unit ${cls}"><span class="ch-py">${esc(py)||'&nbsp;'}</span><span class="ch ${cls}">${esc(ch)}</span></span>`}}$('target').innerHTML=html}
+
+/* ========== 判分 ========== */
+function judgeSentence(sentence,raw){const userChars=[...(raw||'')].filter(isScorable);const statuses=computeStatuses(sentence,userChars,raw.length>0);const chars=[...sentence.text];let correct=0,total=0;for(let i=0;i<chars.length;i++){if(!isScorable(chars[i]))continue;total++;if(statuses[i]==='ok')correct++}return{correct,total}}
+function judgeLesson(lessonId){const lesson=lessons.find(l=>l.id===lessonId);if(!lesson)return{correct:0,total:0,done:false};const ans=answersByLesson[lessonId]||[];let c=0,t=0;lesson.sentences.forEach((s,i)=>{const r=judgeSentence(s,ans[i]||'');c+=r.correct;t+=r.total});return{correct:c,total:t,done:c>0}}
+function judgeCourse(lessonNo){let c=0,t=0;lessons.filter(l=>l.lessonNo===lessonNo).forEach(l=>{const r=judgeLesson(l.id);c+=r.correct;t+=r.total});return{correct:c,total:t,done:c>0}}
+
+/* ========== 得分总览 ========== */
+function renderOverview(){
+  const groups={};
+  lessons.forEach(l=>{if(!groups[l.lessonNo])groups[l.lessonNo]=[];groups[l.lessonNo].push(l)});
+  const[start,end]=currentRange.split('-').map(Number);
+  let html='';let hasAny=false;
+  Object.keys(groups).sort((a,b)=>a-b).forEach(no=>{
+    const n=Number(no);
+    if(n<start||n>end) return;
+    hasAny=true;
+    const list=groups[no];
+    const cr=judgeCourse(n);
+    html+=`<div class="ov-course"><div class="ov-course-head">第${no}课 Lesson ${no}</div><div class="ov-list">`;
+    list.forEach(l=>{
+      const r=judgeLesson(l.id);
+      const isCur=(l.id===currentLessonId);
+      const doneCls=r.done?' done':'';
+      const curCls=isCur?' current':'';
+      const scoreCls=r.done?'':' empty';
+      const scoreHtml=r.done?`<span class="num">${r.correct}</span><span class="sep">/</span><span class="den">${r.total}</span>`:`<span class="num">--</span>`;
+      html+=`<div class="ov-item${doneCls}${curCls}" data-id="${l.id}"><span class="ov-id">${esc(l.id)}</span><span class="ov-name">${esc(l.title)}</span><span class="ov-score${scoreCls}">${scoreHtml}</span></div>`;
+    });
+    html+=`</div>`;
+    const totalCls=cr.done?'':' empty';
+    const totalHtml=cr.done?`<span class="num">${cr.correct}</span><span class="sep">/</span><span class="den">${cr.total}</span>`:`<span class="num">--</span>`;
+    html+=`<div class="ov-total"><span class="lbl">第${no}课总分<small>Lesson ${no} Total</small></span><span class="val${totalCls}">${totalHtml}</span></div></div>`;
+  });
+  if(!hasAny){
+    html=`<div class="overview-empty">第${start}-${end}课暂无内容<small>No lessons in this range yet</small></div>`;
+  }
+  $('overviewBody').innerHTML=html;
+  $('overviewBody').querySelectorAll('.ov-item').forEach(item=>{
+    item.addEventListener('click',()=>{
+      const id=item.dataset.id;
+      if(id!==currentLessonId) switchLesson(id);
+      document.querySelector('.grid').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+}
+
+function renderStats(){const s=getSentences()[cur];const raw=getAnswers()[cur]||'';const{correct,total}=judgeSentence(s,raw);const pct=total?Math.round(correct/total*100):0;$('liveScore').textContent=`${correct} / ${total}`;$('accuracy').textContent=pct+'%';$('accuracy').classList.toggle('perfect',pct===100&&total>0);const r=judgeLesson(currentLessonId);$('currentScore').innerHTML=`<span class="num">${r.correct}</span><span class="sep">/</span><span class="den">${r.total}</span>`;$('currentScore').classList.toggle('perfect',r.correct===r.total&&r.total>0);$('scoreDetailZh').textContent=`正确 ${r.correct} 字 / 共 ${r.total} 字`;$('scoreDetailEn').textContent=`${r.correct} correct / ${r.total} total`;renderOverview()}
+function renderAll(){
+  const s=getSentences()[cur];
+  const spk=s.speaker;
+  const curSpeakEl=$('curSpeaker');
+  if(spk==='旁白'){curSpeakEl.textContent='';curSpeakEl.style.display='none';}
+  else{curSpeakEl.textContent=spk;curSpeakEl.style.display='';}
+  $('curAvatar').innerHTML=avatarHTML(s.speaker);
+  $('progressPill').textContent=`${cur+1} / ${getSentences().length}`;
+  $('answerInput').value=getAnswers()[cur]||'';
+  $('prevBtn').disabled=cur===0;
+  $('nextBtn').disabled=cur===getSentences().length-1;
+  $('target').classList.toggle('show-pinyin',options.typePinyinOn);
+  renderTarget();renderStats();renderLines();refreshTabsState();
+}
+$('answerInput').addEventListener('input',()=>{getAnswers()[cur]=$('answerInput').value;renderTarget();renderStats();const lineEls=$('lines').querySelectorAll('.line');const ans=getAnswers();const sentences=getSentences();lineEls.forEach((el,i)=>{const done=isSentenceDone(sentences[i],ans[i]);const hasSome=(ans[i]||'').length>0;el.classList.remove('line-current','line-done','line-unfinished');if(i===cur)el.classList.add('line-current');else if(done)el.classList.add('line-done');else if(hasSome)el.classList.add('line-unfinished')});scheduleSave();refreshTabsState()});
+$('prevBtn').addEventListener('click',()=>{if(cur>0){cur--;renderAll();$('answerInput').focus()}});
+$('nextBtn').addEventListener('click',()=>{if(cur<getSentences().length-1){cur++;renderAll();$('answerInput').focus()}});
+function applyOptions(){$('pinyinToggle').classList.toggle('on',options.pinyinOn);$('transToggle').classList.toggle('on',options.transOn);$('typePinyinToggle').classList.toggle('on',options.typePinyinOn);document.querySelectorAll('.pinyin-line').forEach(el=>el.classList.toggle('show',options.pinyinOn));document.querySelectorAll('.trans').forEach(el=>el.classList.toggle('show',options.transOn));$('target').classList.toggle('show-pinyin',options.typePinyinOn)}
+$('pinyinToggle').addEventListener('click',()=>{options.pinyinOn=!options.pinyinOn;saveOptions();applyOptions()});
+$('transToggle').addEventListener('click',()=>{options.transOn=!options.transOn;saveOptions();applyOptions()});
+$('typePinyinToggle').addEventListener('click',()=>{options.typePinyinOn=!options.typePinyinOn;saveOptions();applyOptions()});
+syncRangeToLesson();renderNav();updateLessonBanner();loadAudio();applyOptions();renderAll();
+})();
+</script>
+</body>
+</html>
